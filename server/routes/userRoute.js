@@ -16,7 +16,8 @@ router.post("/register", async (req, res) => {
         name: req.body.name,
         email: req.body.email,
         password: newPassword,
-        role:"user"
+        role:"user",
+        isBooked:false,
       });
       res.json({ status: "ok" });
     } catch (err) {
@@ -33,7 +34,7 @@ router.post("/register", async (req, res) => {
     const isPasswordValid = await bcrypt.compare(req.body.password,user.password)
     if (isPasswordValid) {
       if(user.role === 'user'){
-         const token = jwt.sign(
+         const usertoken = jwt.sign(
           {
             name: user.name,
             email: user.email,
@@ -43,7 +44,7 @@ router.post("/register", async (req, res) => {
             expiresIn:'30m'
           }
         );
-        return res.json({ status: "ok", user: token });
+        return res.json({ status: "ok", user: usertoken });
       }
       else{
         return res.json({ status: "error", user: false });

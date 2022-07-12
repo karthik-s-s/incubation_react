@@ -7,7 +7,8 @@ const User = new mongoose.Schema({
     role:{type:String},
     forms:{type:Object},
     formsubmited:{type:Boolean},
-    status:{type:String}
+    status:{type:String},
+    isBooked:{type:Boolean},
 },{collection:'user-data'})
 
 const model = mongoose.model('UserData',User)
